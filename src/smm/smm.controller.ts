@@ -1,16 +1,17 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ProducerService } from 'src/kafka/producer.service';
+import { Body, Controller, Post, Get } from '@nestjs/common';
+import { SmmService } from './smm.service';
 
 @Controller('smm')
 export class SmmController {
-  constructor(private readonly producerService: ProducerService) {}
+  constructor(private readonly smmService: SmmService) {}
 
-  @Post('create')
+  @Get('')
+  async getMessage() {
+    return this.smmService.getMessage();
+  }
+
+  @Post('')
   async createMessage(@Body() dto) {
-    await this.producerService.produce({
-      topic: 'test',
-      messages: dto,
-    });
-    return '++++';
+    return this.smmService.createMessage(dto);
   }
 }

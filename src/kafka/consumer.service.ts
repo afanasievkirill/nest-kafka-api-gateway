@@ -9,6 +9,8 @@ import {
 @Injectable()
 export class ConsumerService implements OnApplicationShutdown {
   private readonly kafka = new Kafka({
+    clientId: 'api-gateway',
+    ssl: false,
     brokers: ['localhost:9092'],
   });
 

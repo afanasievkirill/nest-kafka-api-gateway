@@ -8,6 +8,8 @@ import { Kafka, Producer, ProducerRecord } from 'kafkajs';
 @Injectable()
 export class ProducerService implements OnModuleInit, OnApplicationShutdown {
   private readonly kafka = new Kafka({
+    clientId: 'api-gateway',
+    ssl: false,
     brokers: ['localhost:9092'],
   });
 
@@ -18,7 +20,8 @@ export class ProducerService implements OnModuleInit, OnApplicationShutdown {
   }
 
   async produce(record: ProducerRecord) {
-    await this.producer.send(record);
+    console.log(record);
+    return await this.producer.send(record);
   }
 
   async onApplicationShutdown() {
